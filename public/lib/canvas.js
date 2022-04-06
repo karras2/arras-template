@@ -10,8 +10,8 @@ class Canvas {
         this.directions = [];
         var self = this;
         this.cv = document.getElementById('gameCanvas');
-        this.cv.width = global.screenWidth;
-        this.cv.height = global.screenHeight;
+        this.cv.width = innerWidth;
+        this.cv.height = innerHeight;
         this.cv.addEventListener('mousemove', this.gameInput, false);
         this.cv.addEventListener('keydown', this.keyboardDown, false);
         this.cv.addEventListener('keyup', this.keyboardUp, false);

@@ -1093,13 +1093,13 @@ import * as socketStuff from "./lib/socketInit.js";
                     }
                 }
             }
-            /*ctx.save();
+            ctx.save();
             ctx.scale(drawRatio, drawRatio);
             global.screenWidth /= drawRatio;
-            global.screenHeight /= drawRatio;*/
+            global.screenHeight /= drawRatio;
             // Draw GUI
-            let alcoveSize = 200 / drawRatio * global.screenWidth;
-            let spacing = 21;
+            let alcoveSize = 200;// / drawRatio * global.screenWidth;
+            let spacing = 20;
             gui.__s.update();
             let lb = leaderboard.get();
             let max = lb.max; {
@@ -1652,9 +1652,9 @@ import * as socketStuff from "./lib/socketInit.js";
                     global.clickables.skipUpgrades.hide();
                 }
             }
-            /*global.screenWidth *= drawRatio;
+            global.screenWidth *= drawRatio;
             global.screenHeight *= drawRatio;
-            ctx.restore();*/
+            ctx.restore();
             global.metrics.lastrender = getNow();
         };
     })();

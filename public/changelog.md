@@ -1,3 +1,10 @@
+# Update (05/06/2022): Noname
+- Added Elite Battleship
+- Added Nest Keeper
+- Fixed the ratio scaling
+- Optimizations
+- Changed the gamemode to FFA
+
 # Update (05/04/2022): Well hello there
 - Rewrote the crasher spawning system
 - Rewrote the food spawning system

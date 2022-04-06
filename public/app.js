@@ -267,8 +267,8 @@ import * as socketStuff from "./lib/socketInit.js";
     };
     // Prepare canvas stuff
     function resizeEvent() {
-        c.width = global.screenWidth = window.innerWidth * window.devicePixelRatio;
-        c.height = global.screenHeight = window.innerHeight * window.devicePixelRatio;
+        c.width = global.screenWidth = window.innerWidth;// * window.devicePixelRatio;
+        c.height = global.screenHeight = window.innerHeight;// * window.devicePixelRatio;
     }
     window.resizeEvent = resizeEvent;
     window.canvas = new Canvas();

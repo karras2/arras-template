@@ -1,11 +1,11 @@
-# Update (05/06/2022): Noname
+# Update (04/06/2022): Well hello there
 - Added Elite Battleship
 - Added Nest Keeper
 - Fixed the ratio scaling
 - Optimizations
 - Changed the gamemode to FFA
 
-# Update (05/04/2022): Well hello there
+# Update (04/05/2022): Well hello there
 - Rewrote the crasher spawning system
 - Rewrote the food spawning system
 - Changed the color of the purple team's base

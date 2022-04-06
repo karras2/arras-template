@@ -126,7 +126,7 @@ const util = (function() {
             return Math.atan2(res.y, res.x);
         },
         getRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / global.player.renderv,
-        getScreenRatio: () => (Math.max(global.screenWidth, 16 * global.screenHeight / 9) / Math.min(1920, Math.max(window.innerWidth, 1280))),// * window.devicePixelRatio,
+        getScreenRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9),// / Math.min(1920, Math.max(window.innerWidth, 1280))),// * window.devicePixelRatio,
         Smoothbar: (value, speed, sharpness = 3, lerpValue = .025) => {
             let time = Date.now();
             let display = value;

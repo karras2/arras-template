@@ -28,6 +28,7 @@ import * as socketStuff from "./lib/socketInit.js";
         cache: "no-cache"
     }).then(response => response.text()).then(response => {
         const changelogs = response.split("\n\n").map(changelog => changelog.split("\n"));
+        console.log(changelogs);
         changelogs.forEach(changelog => {
             changelog[0] = changelog[0].split(":").map(line => line.trim());
             document.getElementById("patchNotes").innerHTML += `<div><b>${changelog[0][0].slice(1).trim()}</b>: ${changelog[0].slice(1).join(":") || "Update lol"}<ul>${changelog.slice(1).map(line => `<li>${line.slice(1).trim()}</li>`).join("")}</ul><hr></div>`;
@@ -223,10 +224,6 @@ import * as socketStuff from "./lib/socketInit.js";
         gui.upgrades = [];
     };
     // Build the leaderboard object
-    // The ratio finder
-    var getRatio = () => {
-        return Math.max(global.screenWidth / global.player.renderv, global.screenHeight / global.player.renderv / 9 * 16);
-    };
     global.player = global.player;
     global.canUpgrade = false;
     global.canSkill = false;
@@ -1096,12 +1093,12 @@ import * as socketStuff from "./lib/socketInit.js";
                     }
                 }
             }
-            ctx.save();
+            /*ctx.save();
             ctx.scale(drawRatio, drawRatio);
             global.screenWidth /= drawRatio;
-            global.screenHeight /= drawRatio;
+            global.screenHeight /= drawRatio;*/
             // Draw GUI
-            let alcoveSize = 200;// * global.screenWidth;
+            let alcoveSize = 200 / drawRatio * global.screenWidth;
             let spacing = 21;
             gui.__s.update();
             let lb = leaderboard.get();
@@ -1655,9 +1652,9 @@ import * as socketStuff from "./lib/socketInit.js";
                     global.clickables.skipUpgrades.hide();
                 }
             }
-            global.screenWidth *= drawRatio;
+            /*global.screenWidth *= drawRatio;
             global.screenHeight *= drawRatio;
-            ctx.restore();
+            ctx.restore();*/
             global.metrics.lastrender = getNow();
         };
     })();
@@ -1759,7 +1756,7 @@ import * as socketStuff from "./lib/socketInit.js";
     function animloop() {
         global.animLoopHandle = window.requestAnimFrame(animloop);
         global.player.renderv += (global.player.view - global.player.renderv) / 30;
-        var ratio = (config.graphical.screenshotMode) ? 2 : getRatio();
+        var ratio = (config.graphical.screenshotMode) ? 2 : util.getRatio();
         // Set the drawing style
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';

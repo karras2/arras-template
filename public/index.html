@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
+<style type="text/css">
+    body {
+        overflow: hidden;
+    }
+</style>
+
+<head>
+    <!-- Meta Properties -->
+    <meta charset="UTF-8">
+    <title>arras.io beta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/main.css" />
+    <!-- Version Control -->
+    <script>
+        var VERSION = localStorage.getItem('versionHash');
+        (function versionControl() {
+            let request = new XMLHttpRequest();
+            let url = window.location.href + "/api/vhash";
+            console.log("Checking version...");
+            return new Promise((resolve, reject) => {
+                request.open('GET', url);
+                request.onload = () => {
+                    resolve(request.response);
+                    console.log('Version check successful.');
+                };
+                request.onerror = () => {
+                    reject(request.statusText);
+                    console.log('Version check failed.');
+                    console.log(request.statusText);
+                };
+                request.send();
+            });
+        })().then(function resolveVersion(data) {
+            localStorage.setItem('versionHash', data);
+            if (VERSION !== data) {
+                console.log("Updating!");
+                localStorage.setItem('updated', 'datgudshit');
+                location.reload(true);
+            }
+        });
+    </script>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="96x96" href="https://arras.io/favicon/96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/lib/json/manifest.json">
+    <meta name="msapplication-TileColor" content="#8abc3f">
+    <meta name="theme-color" content="#8abc3f">
+</head>
+
+<body oncontextmenu="return false;" id="mainBody">
+    <div id="gameAreaWrapper">
+        <canvas id="gameCanvas" tabindex="1"></canvas>
+    </div>
+    <div id="mainWrapper">
+        <div id="startMenuWrapper">
+            <div id="startMenu">
+                <div id="twitterHolder" class="startMenuHolder">
+                  sex (gay)
+                </div>
+                <div class="startMenuHolder">
+                    <div class="sliderHolder">
+                        <div class="slider" id="startMenuSlidingContent">
+                            <center><img src="https://arras.io/favicon/96x96.png" /></center>
+                            <h1 id="gameName">arras.io beta</h1>
+                            <div id="serverName">
+                                <h4 class="nopadding">Connecting...</h4>
+                            </div>
+                            <input type="text" autofocus tabindex="1" spellcheck="false" placeholder="This is the tale of:" id="playerNameInput" maxlength="24" />
+                            <input type="text" class="conceal" tabindex="3" placeholder="Token required." id="playerKeyInput" maxlength="64" />
+                        </div>
+                        <div class="slider" id="startMenuSlidingTrigger">
+                            <h3 class="nopadding">view options/help 🡲</h3>
+                        </div>
+                        <div class="slider">
+                            <br>
+                            <options_header>Advanced Controls:</options_header><br>
+                            <table>
+                                <tr>
+                                    <td><b>E</b>: auto-fire</td>
+                                    <td><b>C</b>: auto-spin</td>
+                                </tr>
+                                <tr>
+                                    <td><b>R</b>: disable auto-weapons</td>
+                                    <td><b>N</b>: level up (sandbox)</td>
+                                </tr>
+                            </table>
+                            <options_header>Options:</options_header>
+                            <select id="optColors" tabindex="-1">
+                                <option value="normal">Light Colors</option>
+                                <option value="dark">Dark Colors</option>
+                                <option value="natural">Natural</option>
+                                <option value="classic">Classic</option>
+                                <option value="forest">Forest (Fan-made)</option>
+                                <option value="midnight">Midnight (Fan-made)</option>
+                                <option value="pastel">Snow (Fan-made)</option>
+                                <option value="ocean">Coral Reef (Fan-made)</option>
+                                <option value="badlands">Badlands (Fan-made)</option>
+                                <option value="bleach">Bleach (Fan-made)</option>
+                            </select>
+                            <select id="optBorders" tabindex="-1">
+                                <option value="normal">Soft Borders</option>
+                                <option value="dark">Dark Borders</option>
+                                <option value="neon">Neon Mode</option>
+                                <option value="glass">Glass Mode</option>
+                            </select>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label><input id="optScreenshotMode" tabindex="-1" class="checkbox" type="checkbox"> Screenshot Mode</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <label><input id="optNoPointy" tabindex="-1" class="checkbox" type="checkbox"> Classic Traps</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label><input id="optFancy" tabindex="-1" class="checkbox" type="checkbox"> Low Graphics</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <label><input id="optPredictive" tabindex="-1" class="checkbox" type="checkbox"> Disable Hyperactivity</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label><input id="coloredHealthbars" tabindex="-1" class="checkbox" type="checkbox"> Colord Health Bars</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="position: relative; bottom: -10px;">
+                        <button id="startButton" tabindex="2">Play</button>
+                    </div>
+                </div>
+                <div class="startMenuHolder shrinkable">
+                    <span class="titleSpan">Changelog</span>
+                    <div id="patchNotes" class="shadowScroll"></div>
+                </div>
+                <div id="bottomHolder">
+                    <h5 class="nopadding" style="margin:0; display:inline">Help support the dev: </h5>
+                    <form action="https://www.patreon.com/arras_dev" method="post" target="_top">
+                        <input id="pledge" type="submit" value="Patreon!">
+                    </form>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="YJ42X4KU6ETPA">
+                        <input id="donate" type="submit" value="Paypal!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JS -->
+    <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="module" src="./lib/config.js"></script>
+    <script type="module" src="./lib/color.js"></script>
+    <script type="module" src="./lib/global.js"></script>
+    <script type="module" src="./lib/util.js"></script>
+    <script type="module" src="./lib/canvas.js"></script>
+    <script type="module" src="./lib/protocol.js"></script>
+    <script type="module" src="./lib/socketInit.js"></script>
+    <script type="module" src="./app.js"></script>
+    <script>
+        var clicked = true;
+        $("#startMenuSlidingTrigger").on('click', function() {
+            if (clicked) {
+                clicked = false;
+                $(this).html('<h3 class="nopadding">close options/help 🡶</h3>');
+                $(".slider").css({
+                    "top": "-265px"
+                })
+            } else {
+                clicked = true;
+                $(this).html('<h3 class="nopadding">view options/help 🡲</h3>');
+                $(".slider").css({
+                    "top": 0
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

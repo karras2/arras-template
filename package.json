@@ -1,0 +1,21 @@
+{
+    "name": "arras",
+    "version": "1.0.0",
+    "main": "server/index.js",
+    "scripts": {
+        "start": "node server/index"
+    },
+    "dependencies": {
+        "google-closure-library": "20180506.0.0",
+        "node-fetch": "latest",
+        "express": "latest",
+        "express-ws": "latest",
+        "express-minify": "latest",
+        "cors": "latest",
+        "forwarded-for": "latest"
+    },
+    "engines": {
+        "node": "16.x"
+    },
+    "license": "GPL-3.0"
+}

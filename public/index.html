@@ -1,51 +1,18 @@
 <!doctype html>
 <html lang="en">
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
-<style type="text/css">
-    body {
-        overflow: hidden;
-    }
-</style>
-
 <head>
-    <!-- Meta Properties -->
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="description" content="Arras.io is a fan-made sequel of diep.io. Survive and shoot at others while keeping your own tank alive! Play the game at https://arras.io/.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:image" content="//arras.io/favicon/96x96.png">
+    <meta property="og:image:width" content="54">
+    <meta property="og:image:height" content="54">
     <title>arras.io beta</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
     <link rel="stylesheet" href="/main.css" />
-    <!-- Version Control -->
-    <script>
-        var VERSION = localStorage.getItem('versionHash');
-        (function versionControl() {
-            let request = new XMLHttpRequest();
-            let url = window.location.href + "/api/vhash";
-            console.log("Checking version...");
-            return new Promise((resolve, reject) => {
-                request.open('GET', url);
-                request.onload = () => {
-                    resolve(request.response);
-                    console.log('Version check successful.');
-                };
-                request.onerror = () => {
-                    reject(request.statusText);
-                    console.log('Version check failed.');
-                    console.log(request.statusText);
-                };
-                request.send();
-            });
-        })().then(function resolveVersion(data) {
-            localStorage.setItem('versionHash', data);
-            if (VERSION !== data) {
-                console.log("Updating!");
-                localStorage.setItem('updated', 'datgudshit');
-                location.reload(true);
-            }
-        });
-    </script>
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="96x96" href="https://arras.io/favicon/96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//arras.io/favicon/96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//arras.io/favicon/96x96.png">
     <link rel="manifest" href="/lib/json/manifest.json">
     <meta name="msapplication-TileColor" content="#8abc3f">
     <meta name="theme-color" content="#8abc3f">
@@ -192,6 +159,11 @@
                 });
             }
         });
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.register('/service-worker.js', {
+                scope: '/'
+            }).then(registration => console.log('Service Worker Registered'));
+        }
     </script>
 </body>
 

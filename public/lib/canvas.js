@@ -182,8 +182,8 @@ class Canvas {
         switch (mouse.button) {
             case 0:
                 let mpos = {
-                    x: mouse.clientX * window.devicePixelRatio,
-                    y: mouse.clientY * window.devicePixelRatio,
+                    x: mouse.clientX * global.ratio,
+                    y: mouse.clientY * global.ratio,
                 };
                 let statIndex = global.clickables.stat.check(mpos);
                 if (statIndex !== -1) this.parent.socket.talk('x', statIndex);
@@ -217,12 +217,12 @@ class Canvas {
     }
     // Mouse location (we send target information in the heartbeat)
     gameInput(mouse) {
-        this.parent.target.x = (mouse.clientX * window.devicePixelRatio) - this.width / 2;
-        this.parent.target.y = (mouse.clientY * window.devicePixelRatio) - this.height / 2;
+        this.parent.target.x = (mouse.clientX * global.ratio) - this.width / 2;
+        this.parent.target.y = (mouse.clientY * global.ratio) - this.height / 2;
         global.target = this.parent.target;
         global.statHover = global.clickables.hover.check({
-            x: mouse.clientX * window.devicePixelRatio,
-            y: mouse.clientY * window.devicePixelRatio,
+            x: mouse.clientX * global.ratio,
+            y: mouse.clientY * global.ratio,
         }) === 0;
     }
 }

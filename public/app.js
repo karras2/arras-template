@@ -267,8 +267,14 @@ import * as socketStuff from "./lib/socketInit.js";
     };
     // Prepare canvas stuff
     function resizeEvent() {
-        c.width = global.screenWidth = window.innerWidth;// * window.devicePixelRatio;
-        c.height = global.screenHeight = window.innerHeight;// * window.devicePixelRatio;
+        let scale = window.devicePixelRatio;
+        if (!config.graphical.fancyAnimations) {
+            scale *= .5;
+        }
+        c.width = global.screenWidth = window.innerWidth * scale;
+        c.height = global.screenHeight = window.innerHeight * scale;
+        global.ratio = scale;
+        global.screenSize = Math.min(1920, Math.max(window.innerWidth, 1280));
     }
     window.resizeEvent = resizeEvent;
     window.canvas = new Canvas();
@@ -1093,12 +1099,16 @@ import * as socketStuff from "./lib/socketInit.js";
                     }
                 }
             }
-            ctx.save();
-            ctx.scale(drawRatio, drawRatio);
-            global.screenWidth /= drawRatio;
-            global.screenHeight /= drawRatio;
+            ratio = util.getScreenRatio();
+            let scaleScreenRatio = (by, unset) => {
+                global.screenWidth /= by;
+                global.screenHeight /= by;
+                ctx.scale(by, by);
+                if (!unset) ratio *= by;
+            };
+            scaleScreenRatio(ratio, true);
             // Draw GUI
-            let alcoveSize = 200;// / drawRatio * global.screenWidth;
+            let alcoveSize = 200 / ratio;// / drawRatio * global.screenWidth;
             let spacing = 20;
             gui.__s.update();
             let lb = leaderboard.get();
@@ -1652,9 +1662,6 @@ import * as socketStuff from "./lib/socketInit.js";
                     global.clickables.skipUpgrades.hide();
                 }
             }
-            global.screenWidth *= drawRatio;
-            global.screenHeight *= drawRatio;
-            ctx.restore();
             global.metrics.lastrender = getNow();
         };
     })();
@@ -1687,10 +1694,6 @@ import * as socketStuff from "./lib/socketInit.js";
             return txt;
         };
         return () => {
-            ctx.save();
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            global.screenWidth /= window.devicePixelRatio;
-            global.screenHeight /= window.devicePixelRatio;
             clearScreen(color.black, 0.25);
             let x = global.screenWidth / 2,
                 y = global.screenHeight / 2 - 50;
@@ -1708,9 +1711,6 @@ import * as socketStuff from "./lib/socketInit.js";
             text.kills.draw(getKills(), x - 170, y + 77, 16, color.guiwhite);
             text.death.draw(getDeath(), x - 170, y + 99, 16, color.guiwhite);
             text.playagain.draw('Press enter to play again!', x, y + 125, 16, color.guiwhite, 'center');
-            global.screenWidth *= window.devicePixelRatio;
-            global.screenHeight *= window.devicePixelRatio;
-            ctx.restore();
         };
     })();
     const gameDrawBeforeStart = (() => {
@@ -1719,19 +1719,12 @@ import * as socketStuff from "./lib/socketInit.js";
             message: TextObj(),
         };
         return () => {
-            ctx.save();
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            global.screenWidth /= window.devicePixelRatio;
-            global.screenHeight /= window.devicePixelRatio;
             clearScreen(color.white, 0.5);
             let shift = animations.connecting.get();
             ctx.translate(0, -shift * global.screenHeight);
             text.connecting.draw('Connecting...', global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, 'center');
             text.message.draw(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.lgreen, 'center');
             ctx.translate(0, shift * global.screenHeight);
-            global.screenWidth *= window.devicePixelRatio;
-            global.screenHeight *= window.devicePixelRatio;
-            ctx.restore();
         };
     })();
     const gameDrawDisconnected = (() => {
@@ -1740,16 +1733,9 @@ import * as socketStuff from "./lib/socketInit.js";
             message: TextObj(),
         };
         return () => {
-            ctx.save();
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            global.screenWidth /= window.devicePixelRatio;
-            global.screenHeight /= window.devicePixelRatio;
             clearScreen(mixColors(color.red, color.guiblack, 0.3), 0.25);
             text.disconnected.draw('💀 Disconnected. 💀', global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, 'center');
             text.message.draw(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, 'center');
-            global.screenWidth *= window.devicePixelRatio;
-            global.screenHeight *= window.devicePixelRatio;
-            ctx.restore();
         };
     })();
     // The main function

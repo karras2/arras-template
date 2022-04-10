@@ -24,12 +24,28 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-html, body, canvas {
+html, body {
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  body {
+    font-family: Ubuntu;
+    font-size: 14px;
+    background-color: #484848;
+  }
+  
+  html, body, canvas {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-}
+  }
   
 canvas {
     image-rendering: optimizeSpeed;
@@ -388,10 +404,13 @@ form {
 }
 
 #gameAreaWrapper {
-    position: absolute !important;
+    position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
 
 input [type="image"]:focus {

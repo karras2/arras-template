@@ -80,10 +80,10 @@ const global = {
                 let active = false;
                 return {
                     set: (x, y, w, h) => {
-                        region.x = x * window.devicePixelRatio;
-                        region.y = y * window.devicePixelRatio;
-                        region.w = w * window.devicePixelRatio;
-                        region.h = h * window.devicePixelRatio;
+                        region.x = x * global.ratio;
+                        region.y = y * global.ratio;
+                        region.w = w * global.ratio;
+                        region.h = h * global.ratio;
                         active = true;
                     },
                     check: target => {
@@ -148,7 +148,9 @@ const global = {
         x: 0,
         y: 0
     },
-    fps: 60
+    fps: 60,
+    screenSize: Math.min(1920, Math.max(window.innerWidth, 1280)),
+    ratio: 1
 };
 export {
     global

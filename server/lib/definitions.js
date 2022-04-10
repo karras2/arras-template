@@ -2666,7 +2666,7 @@ exports.cruiserGun = makeSwarmSpawner(combineStats([g.swarm])), exports.cruiser 
     FACING_TYPE: "locksFacing",
     STAT_NAMES: statnames.swarm,
     BODY: {
-        ACCELERATION: .75 * base.ACCEL,
+        ACCELERATION: .85 * base.ACCEL,
         FOV: 1.2 * base.FOV
     },
     GUNS: [{

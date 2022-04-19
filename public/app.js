@@ -15,6 +15,7 @@ import {
 } from "./lib/color.js";
 import * as socketStuff from "./lib/socketInit.js";
 (async function(util, global, config, Canvas, color, socketStuff) {
+    window.serverAdd = (await (await fetch("/serverData.json")).json()).ip;
     let {
         socketInit,
         gui,
@@ -264,6 +265,7 @@ import * as socketStuff from "./lib/socketInit.js";
         };
         window.addEventListener("resize", resizeEvent);
         // Resizing stuff
+        resizeEvent();
     };
     // Prepare canvas stuff
     function resizeEvent() {
@@ -1695,6 +1697,16 @@ import * as socketStuff from "./lib/socketInit.js";
         };
         return () => {
             clearScreen(color.black, 0.25);
+            let ratio = util.getScreenRatio();
+            let scaleScreenRatio = (by, unset) => {
+                global.screenWidth /= by;
+                global.screenHeight /= by;
+                ctx.scale(by, by);
+                if (!unset) ratio *= by;
+            };
+            scaleScreenRatio(ratio, true);
+            let shift = animations.deathScreen.get();
+            ctx.translate(0, -shift * global.screenHeight);
             let x = global.screenWidth / 2,
                 y = global.screenHeight / 2 - 50;
             let picture = util.getEntityImageFromMockup(gui.type, gui.color),
@@ -1711,6 +1723,7 @@ import * as socketStuff from "./lib/socketInit.js";
             text.kills.draw(getKills(), x - 170, y + 77, 16, color.guiwhite);
             text.death.draw(getDeath(), x - 170, y + 99, 16, color.guiwhite);
             text.playagain.draw('Press enter to play again!', x, y + 125, 16, color.guiwhite, 'center');
+            ctx.translate(0, shift * global.screenHeight);
         };
     })();
     const gameDrawBeforeStart = (() => {
@@ -1719,6 +1732,14 @@ import * as socketStuff from "./lib/socketInit.js";
             message: TextObj(),
         };
         return () => {
+            let ratio = util.getScreenRatio();
+            let scaleScreenRatio = (by, unset) => {
+                global.screenWidth /= by;
+                global.screenHeight /= by;
+                ctx.scale(by, by);
+                if (!unset) ratio *= by;
+            };
+            scaleScreenRatio(ratio, true);
             clearScreen(color.white, 0.5);
             let shift = animations.connecting.get();
             ctx.translate(0, -shift * global.screenHeight);
@@ -1733,9 +1754,20 @@ import * as socketStuff from "./lib/socketInit.js";
             message: TextObj(),
         };
         return () => {
+            let ratio = util.getScreenRatio();
+            let scaleScreenRatio = (by, unset) => {
+                global.screenWidth /= by;
+                global.screenHeight /= by;
+                ctx.scale(by, by);
+                if (!unset) ratio *= by;
+            };
+            scaleScreenRatio(ratio, true);
             clearScreen(mixColors(color.red, color.guiblack, 0.3), 0.25);
+            let shift = animations.disconnected.get();
+            ctx.translate(0, -shift * global.screenHeight);
             text.disconnected.draw('💀 Disconnected. 💀', global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, 'center');
             text.message.draw(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, 'center');
+            ctx.translate(0, shift * global.screenHeight);
         };
     })();
     // The main function

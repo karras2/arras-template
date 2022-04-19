@@ -750,7 +750,7 @@ let {
         // The initialization function (this is returned)
         return port => {
             window.resizeEvent();
-            let socket = new WebSocket(protocols[location.protocol] + window.location.hostname + (location.port ? `:${location.port}` : ""));
+            let socket = new WebSocket(protocols[location.protocol] + window.serverAdd);
             // Set up our socket
             socket.binaryType = 'arraybuffer';
             socket.open = false;
@@ -993,6 +993,7 @@ let {
                     for (let i = 0; i < m[5]; i++) {
                         global.finalKillers.push(m[6 + i]);
                     }
+                    window.animations.deathScreen.reset();
                     global.died = true;
                     window.onbeforeunload = () => {
                         return false;

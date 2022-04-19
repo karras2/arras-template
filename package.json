@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "server/index.js",
     "scripts": {
-        "start": "node server/index"
+        "start": "node server/index",
+        "host": "node standaloneClient/index"
     },
     "dependencies": {
         "google-closure-library": "20180506.0.0",

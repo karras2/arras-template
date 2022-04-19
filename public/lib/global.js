@@ -150,7 +150,7 @@ const global = {
     },
     fps: 60,
     screenSize: Math.min(1920, Math.max(window.innerWidth, 1280)),
-    ratio: 1
+    ratio: window.devicePixelRatio
 };
 export {
     global

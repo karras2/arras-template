@@ -17,7 +17,9 @@ server.use(express.json());
 expressWs(server);
 server.use(minify());
 server.use(cors());
-server.use(express.static(path.join(__dirname, "../../../public")));
+if (c.servesStatic) {
+    server.use(express.static(path.join(__dirname, "../../../public")));
+}
 server.get("/lib/json/mockups.json", function(request, response) {
     response.send(mockupJsonData);
 });
@@ -28,10 +30,15 @@ server.get("/lib/json/gamemodeData.json", function(request, response) {
         code: [c.MODE, c.MODE === "ffa" ? "f" : c.TEAMS, c.secondaryGameMode].join("-")
     }));
 });
-
+server.get("/serverData.json", function(request, response) {
+    response.json({
+        ok: true,
+        ip: c.host + ":" + c.port
+    });
+});
 server.ws("/", sockets.connect);
-server.listen(process.env.PORT || c.port, function() {
-    console.log("Express + WS server listening on port", process.env.PORT || c.port);
+server.listen(c.port, function() {
+    console.log("Express + WS server listening on port", c.port);
 });
 
 module.exports = {

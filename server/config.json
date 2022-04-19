@@ -1,5 +1,5 @@
 {
-  "host": "0.0.0.0",
+  "host": "localhost",
   "servesStatic": true,
   "port": 3000,
   "networkUpdateFactor": 24,

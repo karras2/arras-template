@@ -10,6 +10,7 @@ goog.require('goog.structs.QuadTree');
 
 // Global Utilities Requires
 global.c = require("./setup/config.js").output;
+global.c.port = process.env.PORT || c.port;
 global.ran = require(".././lib/random.js");
 global.util = require(".././lib/util.js");
 global.hshg = require(".././lib/hshg.js");

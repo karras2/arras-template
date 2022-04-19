@@ -1,3 +1,10 @@
+# Update (04/11/2022): If there are ten people, how many corpses will there be?
+- Added Elite Battleship
+- Added Nest Keeper
+- Fixed the ratio scaling
+- Optimizations
+- Changed the gamemode to FFA
+
 # Update (04/06/2022): Well hello there
 - Added Elite Battleship
 - Added Nest Keeper

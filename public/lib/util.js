@@ -92,7 +92,7 @@ const util = (function() {
                 request.send();
             });*/
             return new Promise((resolve, reject) => {
-                const url = `/lib/json/${fileName}.json`;
+                const url = `${location.protocol}//${window.serverAdd}/lib/json/${fileName}.json`;
                 console.log("Loading JSON from " + url);
                 fetch(url).then(response => response.json()).then(json => {
                     console.log("JSON load from " + url + " complete");
